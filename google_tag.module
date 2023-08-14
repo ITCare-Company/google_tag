@@ -192,6 +192,15 @@ function _google_tag_user_register_form_event(&$form, FormStateInterface $form_s
 }
 
 /**
+ * Implements hook_form_google_analytics_admin_settings_alter().
+ */
+function google_tag_form_google_analytics_admin_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  \Drupal::messenger()->addWarning(t('Google Analytics functionality has been rolled into <a href=":url">Google Tag</a>. You should disable this module.', [':url' => Url::fromRoute('entity.google_tag_container.single_form')->toString()]));
+  $form['actions']['submit']['#disabled'] = TRUE;
+  $form['actions']['submit']['#value'] = t('Save configuration (disabled)');
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function google_tag_form_commerce_checkout_flow_alter(&$form, FormStateInterface $form_state, $form_id) {
