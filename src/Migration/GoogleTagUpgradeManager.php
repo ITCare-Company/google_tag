@@ -94,7 +94,7 @@ class GoogleTagUpgradeManager extends GoogleTagMigrateBase {
     $old_conditions = $entity->get('conditions');
     $conditions = [];
     $condition_definitions = $this->conditionManager->getDefinitions();
-    $negate_toggle = 'exclude_listed';
+    $negate_toggle = 'exclude listed';
     foreach ($old_conditions as $condition_id => $condition_config) {
       // Only add to the config if condition plugin is available.
       if (isset($condition_definitions[$condition_id])) {
@@ -105,7 +105,7 @@ class GoogleTagUpgradeManager extends GoogleTagMigrateBase {
       if ($condition_id === 'gtag_language') {
         $gtag_language_config = $old_conditions['gtag_language'] ?? [];
         $language_plugin = 'language';
-        $language_negate = $gtag_language_config['language_toggle'] !== $negate_toggle;
+        $language_negate = $gtag_language_config['language_toggle'] === $negate_toggle;
         $langcodes = $gtag_language_config['language_list'] ?? [];
         $langcodes = array_combine($langcodes, $langcodes);
         $language_config = [
@@ -120,14 +120,14 @@ class GoogleTagUpgradeManager extends GoogleTagMigrateBase {
     // Convert roles, request paths, status code
     // custom conditions from 1.x to actual condition plugins.
     // Request path custom condition.
-    $request_negate = $entity->get('path_toggle') !== $negate_toggle;
+    $request_negate = $entity->get('path_toggle') === $negate_toggle;
     $request_paths = $entity->get('path_list');
     $request_path_plugin = 'request_path';
     if ($request_paths !== '' && isset($condition_definitions[$request_path_plugin])) {
       $conditions[$request_path_plugin] = static::getRequestPathCondition($request_paths, $request_negate);
     }
     // Response code custom condition.
-    $response_code_negate = $entity->get('status_toggle') !== $negate_toggle;
+    $response_code_negate = $entity->get('status_toggle') === $negate_toggle;
     $response_codes = $entity->get('status_list');
     $response_code_plugin = 'response_code';
     if ($response_codes !== '' && isset($condition_definitions[$response_code_plugin])) {
@@ -139,7 +139,7 @@ class GoogleTagUpgradeManager extends GoogleTagMigrateBase {
       $conditions[$response_code_plugin] = $response_code_config;
     }
     // Roles custom condition.
-    $roles_negate = $entity->get('role_toggle') !== $negate_toggle;
+    $roles_negate = $entity->get('role_toggle') === $negate_toggle;
     $roles = $entity->get('role_list');
     $roles_plugin = 'user_role';
     if ($roles !== [] && isset($condition_definitions[$roles_plugin])) {
