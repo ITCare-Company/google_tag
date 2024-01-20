@@ -28,7 +28,7 @@ final class PageAttachmentsHookTest extends GoogleTagTestCase {
       ->get('main_content_renderer.html')
       ->invokePageAttachmentHooks($page);
     self::assertEquals([
-      'contexts' => [],
+      'contexts' => ['user.roles:authenticated'],
       'tags' => $this->container->get('entity_type.manager')->getDefinition('google_tag_container')->getListCacheTags(),
       'max-age' => -1,
     ], $page['#cache']);
@@ -69,7 +69,7 @@ final class PageAttachmentsHookTest extends GoogleTagTestCase {
       ->get('main_content_renderer.html')
       ->invokePageAttachmentHooks($page);
     self::assertEquals([
-      'contexts' => ['url.path'],
+      'contexts' => ['user.roles:authenticated', 'url.path'],
       'tags' => ['config:google_tag_container_list', 'config:google_tag.container.foo'],
       'max-age' => -1,
     ], $page['#cache']);
