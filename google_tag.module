@@ -12,7 +12,6 @@ declare(strict_types=1);
  * Integration between Drupal and Google Tag.
  */
 
-use Drupal\search\SearchPageInterface;
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutFlow\CheckoutFlowInterface;
 use Drupal\commerce_product\Entity\ProductInterface;
 use Drupal\commerce_product\ProductVariationStorageInterface;
@@ -22,6 +21,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\search\SearchPageInterface;
 
 /**
  * Implements hook_theme().
@@ -250,8 +250,11 @@ function google_tag_commerce_product_view(array &$build, ProductInterface $entit
   if ($view_mode === 'full') {
     $product_variation_storage = \Drupal::entityTypeManager()->getStorage('commerce_product_variation');
     assert($product_variation_storage instanceof ProductVariationStorageInterface);
-    \Drupal::service('google_tag.event_collector')->addEvent('commerce_view_item', [
-      'item' => $product_variation_storage->loadFromContext($entity),
-    ]);
+    $variation = $product_variation_storage->loadFromContext($entity);
+    if ($variation !== NULL) {
+      \Drupal::service('google_tag.event_collector')->addEvent('commerce_view_item', [
+        'item' => $variation,
+      ]);
+    }
   }
 }
