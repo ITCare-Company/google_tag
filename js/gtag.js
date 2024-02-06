@@ -5,6 +5,15 @@ gtag('set', 'developer_id.dMDhkMT', true);
 
 (function (drupalSettings) {
   const config = drupalSettings.gtag;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'wait_for_update': 500
+  });
+
   if (config.tagId.length !== 0) {
     const script = document.createElement('script')
     script.async = true;
