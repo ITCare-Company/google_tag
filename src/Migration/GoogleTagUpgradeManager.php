@@ -25,38 +25,38 @@ class GoogleTagUpgradeManager extends GoogleTagMigrateBase {
       ->condition('status', 1)
       ->sort('weight')
       ->execute();
-    if (!$entity_ids) {
-      return;
-    }
-    /** @var \Drupal\google_tag\Entity\TagContainer[] $entities */
-    $entities = $storage->loadMultiple($entity_ids);
-    $default_entity = '';
     $gtag_settings = $this->configFactory->getEditable('google_tag.settings');
-    $use_collection = count($entities) > 1;
-    foreach ($entities as $entity) {
-      // First iteration.
-      if ($default_entity === '') {
-        $default_entity = $entity->id();
-      }
-      // Skip if it's a new entity.
-      if ($entity->get('tag_container_ids') !== []) {
-        continue;
-      }
-      // Convert container_id string into tag_container_ids array.
-      $entity->set('tag_container_ids', [$entity->get('container_id')]);
+    $default_entity = $gtag_settings->get('default_google_tag_entity') ?? '';
+    $use_collection = $gtag_settings->get('use_collection') ?? FALSE;
+    if ($entity_ids) {
+      /** @var \Drupal\google_tag\Entity\TagContainer[] $entities */
+      $entities = $storage->loadMultiple($entity_ids);
+      $use_collection = count($entities) > 1;
+      foreach ($entities as $entity) {
+        // First iteration.
+        if ($default_entity === '') {
+          $default_entity = $entity->id();
+        }
+        // Skip if it's a new entity.
+        if ($entity->get('tag_container_ids') !== []) {
+          continue;
+        }
+        // Convert container_id string into tag_container_ids array.
+        $entity->set('tag_container_ids', [$entity->get('container_id')]);
 
-      // Convert advanced settings from old to new format.
-      $this->convertGtmSettings($entity);
+        // Convert advanced settings from old to new format.
+        $this->convertGtmSettings($entity);
 
-      // Convert conditions.
-      $this->convertConditions($entity);
+        // Convert conditions.
+        $this->convertConditions($entity);
 
-      // Configure events.
-      $events = $entity->get('events');
-      if ($events === []) {
-        $entity->set('events', $this->getDefaultEventData());
+        // Configure events.
+        $events = $entity->get('events');
+        if ($events === []) {
+          $entity->set('events', $this->getDefaultEventData());
+        }
+        $entity->save();
       }
-      $entity->save();
     }
     $new_gtag_settings['default_google_tag_entity'] = $default_entity;
     $new_gtag_settings['use_collection'] = $use_collection;
