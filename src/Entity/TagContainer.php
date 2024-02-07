@@ -62,7 +62,7 @@ class TagContainer extends ConfigEntityBase implements EntityWithPluginCollectio
   /**
    * Define the Acceptable Google Tag and GTM ID Patterns.
    */
-  const GOOGLE_TAG_MATCH = '(?:GT|UA|G|AW|DC|GTM)-[0-9a-zA-Z]{5,}(?:-[0-9]{1,})?';
+  const GOOGLE_TAG_MATCH = '(?:GT|UA|G|AW|DC|GTM)-[0-9a-zA-Z]{4,}(?:-[0-9]{1,})?';
 
   /**
    * Define the Acceptable Measurement ID patterns.
@@ -77,7 +77,7 @@ class TagContainer extends ConfigEntityBase implements EntityWithPluginCollectio
   /**
    * Define the Acceptable Google Tag Manager Container IDs.
    */
-  const GOOGLE_TAG_MANAGER_MATCH = '/(?:GTM)-[0-9a-zA-Z]{5,}/';
+  const GOOGLE_TAG_MANAGER_MATCH = '/(?:GTM)-[0-9a-zA-Z]{4,}/';
 
   /**
    * The machine name for the configuration entity.
