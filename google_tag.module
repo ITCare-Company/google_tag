@@ -81,8 +81,8 @@ function google_tag_page_top(array &$page) {
       ];
       if ($adv_settings['include_environment']) {
         // Gather data.
-        $query_params['gtm_auth'] = $adv_settings['environment_id'];
-        $query_params['gtm_preview'] = $adv_settings['environment_token'];
+        $query_params['gtm_auth'] = $adv_settings['environment_token'];
+        $query_params['gtm_preview'] = $adv_settings['environment_id'];
         $query_params['gtm_cookies_win'] = 'x';
       }
 
