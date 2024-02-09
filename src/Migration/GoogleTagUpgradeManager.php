@@ -22,6 +22,7 @@ class GoogleTagUpgradeManager extends GoogleTagMigrateBase {
   public function upgradeGoogleTagEntities(): void {
     $storage = $this->entityTypeManager->getStorage('google_tag_container');
     $entity_ids = $storage->getQuery()
+      ->accessCheck(TRUE)
       ->condition('status', 1)
       ->sort('weight')
       ->execute();
