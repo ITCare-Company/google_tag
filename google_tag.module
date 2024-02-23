@@ -135,6 +135,7 @@ function google_tag_page_attachments(array &$attachments) {
   $attachments['#attached']['drupalSettings']['gtag'] = [
     'tagId' => $config->getDefaultTagId(),
     'otherIds' => $config->getAdditionalIds(),
+    'consentMode' => $config->getConsentMode(),
     'events' => [],
     'additionalConfigInfo' => \Drupal::service('google_tag.dimensions_metrics_processor')->getValues($config),
   ];

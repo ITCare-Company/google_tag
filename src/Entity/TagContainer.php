@@ -301,6 +301,17 @@ class TagContainer extends ConfigEntityBase implements EntityWithPluginCollectio
   }
 
   /**
+   * Returns Consent Mode status
+   *
+   * @return boolean
+   *   Whether Consent Mode Javascript should be added to the request.
+   */
+  public function getConsentMode(): bool {
+    $advanced_settings = $this->get('advanced_settings');
+    return (bool)$advanced_settings['consent_mode'] ?? TRUE;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getCacheContexts() {
