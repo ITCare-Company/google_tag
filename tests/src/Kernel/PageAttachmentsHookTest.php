@@ -92,6 +92,7 @@ final class PageAttachmentsHookTest extends GoogleTagTestCase {
           ],
         ],
         'additionalConfigInfo' => [],
+        'consentMode' => true,
       ],
     ], $page['#attached']['drupalSettings']);
 

@@ -115,6 +115,10 @@ google_tag.advanced_settings.*:
 google_tag_advanced_configuration:
   type: mapping
 
+google_tag.advanced_settings.consent_mode:
+  type: boolean
+  label: Consent mode
+
 google_tag.advanced_settings.gtm:
   type: sequence
   sequence:
