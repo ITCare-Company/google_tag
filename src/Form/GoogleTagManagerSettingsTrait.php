@@ -117,16 +117,21 @@ trait GoogleTagManagerSettingsTrait {
   public function validateGtmFormValues(array &$form, FormStateInterface $form_state) {
     // Trim the text values.
     $advanced_values = $form_state->getValue('advanced_settings');
-    if (!is_array($advanced_values) || $advanced_values['gtm'] === []) {
+    if (!is_array($advanced_values) || !isset($advanced_values['gtm']) || !is_array($advanced_values['gtm'])) {
       return;
     }
 
     foreach ($advanced_values['gtm'] as $gtm_id => $settings) {
+      // Skip if $settings is not an array.
+      if (!is_array($settings)) {
+          continue;
+      }
+
       $environment_id = trim($settings['environment_id']);
       $advanced_values['gtm'][$gtm_id]['data_layer'] = trim($settings['data_layer']);
       $advanced_values['gtm'][$gtm_id]['allowlist_classes'] = $this->cleanText($settings['allowlist_classes']);
       $advanced_values['gtm'][$gtm_id]['blocklist_classes'] = $this->cleanText($settings['blocklist_classes']);
-      if ($advanced_values['gtm'][$gtm_id]['include_environment'] && !preg_match('/^env-\d{1,}$/', $environment_id)) {
+      if (!empty($advanced_values['gtm'][$gtm_id]['include_environment']) && !preg_match('/^env-\d{1,}$/', $environment_id)) {
         $form_state->setError($form['advanced_settings']['gtm'][$gtm_id]['environment_id'], $this->t('A valid environment ID is case sensitive and formatted like env-x.'));
       }
     }
