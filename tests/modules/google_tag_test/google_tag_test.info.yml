@@ -1,4 +1,6 @@
-name: Google Tag Tests
+name: 'Google Tag Tests'
 type: module
+description: 'Support module for Google Tag testing.'
+package: Testing
 dependencies:
   - google_tag:google_tag
