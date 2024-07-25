@@ -636,7 +636,7 @@ class TagContainerForm extends EntityForm {
       $configuration = $condition->getConfiguration();
 
       // Due to strict type checking, cast negation to a boolean.
-      $configuration['negate'] = (bool) $configuration['negate'];
+      $configuration['negate'] = (bool) (array_key_exists('negate', $configuration) ? $configuration['negate'] : FALSE);
 
       // Update the insertion conditions on the container.
       $this->entity->getInsertionConditions()->addInstanceId($condition_id, $configuration);
