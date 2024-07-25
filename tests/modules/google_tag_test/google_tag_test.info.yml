@@ -1,5 +1,5 @@
 name: Google Tag Nightwatch
 type: module
-core_version_requirement: ^9.5 || ^10
+core_version_requirement: ^9.5 || ^10  || ^11
 dependencies:
   - google_tag:google_tag

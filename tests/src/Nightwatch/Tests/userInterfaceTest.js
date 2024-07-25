@@ -56,6 +56,7 @@ module.exports = {
       .assert.not.dataLayerContains(['config', 'G-XXXXXX'])
       .assert.not.dataLayerContains(['config', 'UA-XXXXXX'])
       .drupalRelativeURL('/user/logout')
+      .click('[data-drupal-selector="edit-submit"]')
       .drupalRelativeURL('/test-page')
       .assert.googleTagExists()
       .assert.dataLayerContains(['config', 'G-XXXXXX'])

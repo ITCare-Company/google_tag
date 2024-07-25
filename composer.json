@@ -1,5 +1,6 @@
 {
     "name": "drupal/google_tag",
+    "description": "Sets up Google Tag.",
     "type": "drupal-module",
     "license": "GPL-2.0-or-later",
     "require": {
