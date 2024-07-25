@@ -41,7 +41,7 @@ final class TagContainerResolverTest extends GoogleTagTestCase {
     ]);
     $config1->save();
     // With respect to the change record https://www.drupal.org/node/3337193,
-    // Add a mock session on the request before pushing it on the stack
+    // Add a mock session on the request before pushing it on the stack.
     if (version_compare(\Drupal::VERSION, '10.3', '>=')) {
       $request1->setSession(new Session(new MockArraySessionStorage()));
     }
@@ -57,7 +57,7 @@ final class TagContainerResolverTest extends GoogleTagTestCase {
     $config2->save();
 
     // With respect to the change record https://www.drupal.org/node/3337193,
-    // Add a mock session on the request before pushing it on the stack
+    // Add a mock session on the request before pushing it on the stack.
     if (version_compare(\Drupal::VERSION, '10.3', '>=')) {
       $request2->setSession(new Session(new MockArraySessionStorage()));
     }
@@ -94,7 +94,7 @@ final class TagContainerResolverTest extends GoogleTagTestCase {
         'data' => [
           'route_name' => 'user.login',
         ],
-      ]
+      ],
     ]);
     $request2 = Request::create('/foo');
     $this->doRequest($request2);

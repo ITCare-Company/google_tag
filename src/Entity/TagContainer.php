@@ -193,7 +193,7 @@ class TagContainer extends ConfigEntityBase implements EntityWithPluginCollectio
     // Legacy advanced settings detected.
     return $advanced_settings['gtm'][$gtmid] ?? [
       'data_layer' => 'dataLayer',
-      'include_environment' => FALSE
+      'include_environment' => FALSE,
     ];
   }
 
@@ -301,9 +301,9 @@ class TagContainer extends ConfigEntityBase implements EntityWithPluginCollectio
   }
 
   /**
-   * Returns Consent Mode status
+   * Returns Consent Mode status.
    *
-   * @return boolean
+   * @return bool
    *   Whether Consent Mode Javascript should be added to the request.
    */
   public function getConsentMode(): bool {
@@ -334,4 +334,5 @@ class TagContainer extends ConfigEntityBase implements EntityWithPluginCollectio
     $cache_maxage = array_map(fn(ConditionInterface $condition) => $condition->getCacheMaxAge(), iterator_to_array($this->getInsertionConditions()) ?? []);
     return Cache::mergeMaxAges(parent::getCacheMaxAge(), ...array_values($cache_maxage));
   }
+
 }
