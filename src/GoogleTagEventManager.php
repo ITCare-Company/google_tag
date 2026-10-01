@@ -10,6 +10,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Utility\Token;
 use Drupal\google_tag\Annotation\GoogleTagEvent;
+use Drupal\google_tag\Attribute\GoogleTagEvent as GoogleTagEventAttribute;
 use Drupal\google_tag\Plugin\GoogleTag\Event\ConfigurableEventBase;
 use Drupal\google_tag\Plugin\GoogleTag\Event\GoogleTagEventInterface;
 
@@ -44,6 +45,7 @@ final class GoogleTagEventManager extends DefaultPluginManager {
       $namespaces,
       $module_handler,
       GoogleTagEventInterface::class,
+      GoogleTagEventAttribute::class,
       GoogleTagEvent::class,
     );
     $this->alterInfo('google_tag_event_info');
