@@ -1,5 +1,5 @@
 name: Google Tag
 description: Sets up Google Tag
 type: module
-core_version_requirement: ^9.5 || ^10 || ^11
+core_version_requirement: ^9.5 || ^10 || ^11 || ^12
 configure: google_tag.settings_form
