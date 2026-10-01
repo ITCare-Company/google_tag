@@ -96,7 +96,20 @@ function google_tag_page_top(array &$page) {
 
 /**
  * Implements hook_page_attachments().
+ *
+ * D12 (change record 3496788): the "run last" half of
+ * google_tag_module_implements_alter() is reproduced natively below.
+ * The "unset google_analytics' page_attachments implementation" half is
+ * NOT reproduced here — core 12's #[RemoveHook] attribute targets a
+ * class+method pair (OOP hook listeners), and google_analytics'
+ * hook_page_attachments() is still a plain procedural function; the exact
+ * synthetic class/method core assigns to a procedural legacy hook for
+ * #[RemoveHook] targeting purposes was not confirmed against a live D12
+ * hook-collection trace in this pass. Needs a deeper, verified follow-up
+ * (file a fix in google_analytics once confirmed) — flagging rather than
+ * guessing at the API.
  */
+#[\Drupal\Core\Hook\Attribute\Hook('page_attachments', order: \Drupal\Core\Hook\Order\Order::Last)]
 function google_tag_page_attachments(array &$attachments) {
   $definition = \Drupal::entityTypeManager()->getDefinition('google_tag_container');
   $cacheable_metadata = CacheableMetadata::createFromRenderArray($attachments);

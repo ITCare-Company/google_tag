@@ -48,7 +48,7 @@ class GoogleTagRequirementsTest extends GoogleTagTestCase {
       $google_tag_requirements['description']
     );
     self::assertEquals('Google Tag', $google_tag_requirements['title']);
-    self::assertEquals(REQUIREMENT_ERROR, $google_tag_requirements['severity']);
+    self::assertEquals((class_exists('\\Drupal\\Core\\Extension\\Requirement\\RequirementSeverity') ? \Drupal\Core\Extension\Requirement\RequirementSeverity::Error : REQUIREMENT_ERROR), $google_tag_requirements['severity']);
     self::assertEquals(
       'Google Tag 2.x is incompatible with Google Analytics while upgrading from 1.x.',
       $google_tag_requirements['value']

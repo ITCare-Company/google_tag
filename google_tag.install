@@ -93,7 +93,7 @@ function google_tag_requirements($phase) {
       $requirements['google_tag'] = [
         'title' => t('Google Tag'),
         'description' => t('In order to use Google Tag 2.x, you must decide the upgrade path between Google Tag 1.x and Google Analytics.'),
-        'severity' => REQUIREMENT_ERROR,
+        'severity' => (class_exists('\\Drupal\\Core\\Extension\\Requirement\\RequirementSeverity') ? \Drupal\Core\Extension\Requirement\RequirementSeverity::Error : REQUIREMENT_ERROR),
         'value' => 'Google Tag 2.x is incompatible with Google Analytics while upgrading from 1.x.',
       ];
     }
